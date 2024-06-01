@@ -1,10 +1,8 @@
-// import { useState } from "react";
 import { Link } from "react-router-dom";
-// import DetailsModal from "./DetailsModal";
 
 const CardListing = ({ item }) => {
   const {_id, pet_image_url, pet_name, pet_age, pet_location, pet_short_description } = item;
-  // const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  
 
  
   return (
@@ -21,14 +19,9 @@ const CardListing = ({ item }) => {
       <Link to={`/details/${_id}`} className="flex justify-center mb-4
       ">
         <button
-        //  onClick={() => setIsEditModalOpen(true)} 
          className="btn btn-outline border-b-4 text-pink-500 hover:bg-pink-500 hover:text-white hover:border-none mr-3 px-6">View Details</button>
       </Link>
-      {/* <DetailsModal
-      isOpen={isEditModalOpen}
-      setIsEditModalOpen={setIsEditModalOpen}
-      item={item}
-      ></DetailsModal> */}
+     
 
     </div>
   );
