@@ -1,8 +1,12 @@
-import React from "react";
+// import { useState } from "react";
+import { Link } from "react-router-dom";
+// import DetailsModal from "./DetailsModal";
 
 const CardListing = ({ item }) => {
-  const { pet_image_url, pet_name, pet_age, pet_location, pet_short_description } = item;
+  const {_id, pet_image_url, pet_name, pet_age, pet_location, pet_short_description } = item;
+  // const [isEditModalOpen, setIsEditModalOpen] = useState(false)
 
+ 
   return (
     <div className=" rounded-md overflow-hidden shadow-lg bg-white mb-4 hover:scale-105 transition">
       <img className="w-full h-56 object-cover" src={pet_image_url} alt={pet_name} />
@@ -14,10 +18,18 @@ const CardListing = ({ item }) => {
         <span className="inline-block bg-pink-200 rounded-2xl  px-3 py-2 text-sm font-semibold text-gray-700 mr-2">Age : 0{pet_age}</span>
         <span className="inline-block bg-pink-200 rounded-2xl px-3 py-2 text-sm font-semibold text-gray-700">Location : {pet_location}</span>
       </div>
-      <div className="flex justify-center mb-4
+      <Link to={`/details/${_id}`} className="flex justify-center mb-4
       ">
-        <button className="btn btn-outline border-b-4 text-pink-500 hover:bg-pink-500 hover:text-white hover:border-none mr-3 px-6">View Details</button>
-      </div>
+        <button
+        //  onClick={() => setIsEditModalOpen(true)} 
+         className="btn btn-outline border-b-4 text-pink-500 hover:bg-pink-500 hover:text-white hover:border-none mr-3 px-6">View Details</button>
+      </Link>
+      {/* <DetailsModal
+      isOpen={isEditModalOpen}
+      setIsEditModalOpen={setIsEditModalOpen}
+      item={item}
+      ></DetailsModal> */}
+
     </div>
   );
 };

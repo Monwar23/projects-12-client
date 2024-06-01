@@ -8,6 +8,7 @@ import DonationCampaigns from "../Pages/donationCampaigns/DonationCampaigns";
 import Login from "../Pages/Single/Login";
 import Register from "../Pages/Single/Register";
 import ErrorPage from "../shared/ErrorPage";
+import Details from "../Pages/PetListing/Details";
 
  export const router = createBrowserRouter([
     {
@@ -35,6 +36,12 @@ import ErrorPage from "../shared/ErrorPage";
             path:'/signup',
             element:<Register></Register>
         },
+        {
+          path:'/details/:id',
+          element:<Details></Details>,
+          loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/pets/${params.id}`)
+
+      },
       ]
     },
   ]);
