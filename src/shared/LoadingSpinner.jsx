@@ -1,4 +1,4 @@
-import { CircleLoader } from 'react-spinners'
+import { FadeLoader } from 'react-spinners'
 
 const LoadingSpinner = ({ smallHeight }) => {
   return (
@@ -9,7 +9,7 @@ const LoadingSpinner = ({ smallHeight }) => {
       justify-center 
       items-center `}
     >
-      <CircleLoader size={100} color='pink' />
+      <FadeLoader size={100} color='pink' />
     </div>
   )
 }
