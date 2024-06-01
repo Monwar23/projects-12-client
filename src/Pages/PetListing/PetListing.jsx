@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosCommon from "../../hooks/useAxiosCommon";
 import { Helmet } from "react-helmet";
+import CardListing from "./CardListing";
+import LoadingSpinner from "../../shared/LoadingSpinner";
 
 const PetListing = () => {
 
@@ -14,16 +16,21 @@ const PetListing = () => {
         }
     })
 
+    if(isLoading) return <LoadingSpinner></LoadingSpinner>
+
+
     return (
         <div>
             <Helmet>
             <title>LovingPets | PetListing</title>
             </Helmet>
-            <div>
+           <div className="mt-10 mb-5">
+           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
              {
-                category.map(item=><CardCategory key={item._key} item={item}></CardCategory>)
+                pets.map(item=><CardListing key={item._key} item={item}></CardListing>)
             }
         </div>
+           </div>
         </div>
     );
 };
