@@ -8,7 +8,7 @@ const Inspired = () => {
                 subHeading={"Bring joy and love into your home by adopting a pet. Give a deserving animal a second chance and find your new best friend today. Start your journey now!"}
             ></SectionTitle>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-8 hover:scale-105 transition">
                 <div className="rounded overflow-hidden shadow-lg bg-white flex">
                     <img className="w-1/2 h-60 rounded-md" src="https://i.ibb.co/HGsZCRR/pexels-cottonbro-5801322.jpg" alt="Adopt a Pet" />
                     <div className="px-6 py-4 w-1/2">
@@ -19,7 +19,7 @@ const Inspired = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-8 hover:scale-105 transition">
                 <div className="rounded overflow-hidden shadow-lg bg-white flex">
                     <img className="w-1/2 h-60 rounded-md" src="https://i.ibb.co/hCrrnL8/pexels-gustavo-fring-3985277.jpg" alt="Adopt a Pet" />
                     <div className="px-6 py-4 w-1/2">
@@ -30,7 +30,7 @@ const Inspired = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-8 hover:scale-105 transition">
                 <div className="rounded overflow-hidden shadow-lg bg-white flex">
                     <img className="w-1/2 h-60 rounded-md" src="https://i.ibb.co/RbDmPyv/pexels-cottonbro-5998706.jpg" alt="Adopt a Pet" />
                     <div className="px-6 py-4 w-1/2">
@@ -41,7 +41,7 @@ const Inspired = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-8 hover:scale-105 transition">
                 <div className="rounded overflow-hidden shadow-lg bg-white flex">
                     <img className="w-1/2 h-60 rounded-md" src="https://i.ibb.co/St40nr3/pexels-pnw-prod-7677732.jpg" alt="Adopt a Pet" />
                     <div className="px-6 py-4 w-1/2">
@@ -52,7 +52,7 @@ const Inspired = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-8 hover:scale-105 transition">
                 <div className="rounded overflow-hidden shadow-lg bg-white flex">
                     <img className="w-1/2 h-60 rounded-md" src="https://i.ibb.co/yn69MHd/pexels-pnw-prod-7677737.jpg" alt="Adopt a Pet" />
                     <div className="px-6 py-4 w-1/2 ">
@@ -63,7 +63,7 @@ const Inspired = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-8 hover:scale-105 transition">
                 <div className="rounded overflow-hidden shadow-lg bg-white flex">
                     <img className="w-1/2 h-60 rounded-md" src="https://i.ibb.co/XL7kpY5/pexels-thevibrantmachine-2958113.jpg" alt="Adopt a Pet" />
                     <div className="px-6 py-4 w-1/2">
