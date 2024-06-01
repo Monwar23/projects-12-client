@@ -6,6 +6,7 @@ import UseAuth from '../../hooks/UseAuth'
 import toast from 'react-hot-toast'
 import { imageUpload } from '../../utilies'
 import { useEffect } from 'react'
+import { Helmet } from 'react-helmet'
 
 const Register = () => {
 
@@ -95,7 +96,11 @@ const Register = () => {
     
 
   return (
-    <div className='flex justify-center items-center min-h-screen'>
+   <div>
+     <Helmet>
+      <title>LovingPets | SignUp</title>
+    </Helmet>
+     <div className='flex justify-center items-center min-h-screen'>
       <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
         <div className='mb-8 text-center'>
           <h1 className='my-3 text-4xl font-bold'>Sign Up</h1>
@@ -194,6 +199,7 @@ const Register = () => {
         </p>
       </div>
     </div>
+   </div>
   )
 }
 
