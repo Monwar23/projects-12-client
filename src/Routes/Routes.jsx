@@ -7,11 +7,13 @@ import PetListing from "../Pages/PetListing/PetListing";
 import DonationCampaigns from "../Pages/donationCampaigns/DonationCampaigns";
 import Login from "../Pages/Single/Login";
 import Register from "../Pages/Single/Register";
+import ErrorPage from "../shared/ErrorPage";
 
  export const router = createBrowserRouter([
     {
       path: "/",
       element: <Main></Main>,
+      errorElement:<ErrorPage></ErrorPage>,
       children:[
         {
             path:'/',
