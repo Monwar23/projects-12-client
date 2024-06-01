@@ -1,21 +1,32 @@
 
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa6'
 import UseAuth from '../../hooks/UseAuth'
 import toast from 'react-hot-toast'
 import { imageUpload } from '../../utilies'
+import { useEffect } from 'react'
 
 const Register = () => {
 
     const navigate=useNavigate()
+    const location=useLocation()
+
     const {
-    setLoading,
-    createUser,
+    setLoading,user,
+    createUser,loading,
     signInWithGoogle,
     updateUserProfile,
     gitHubLogin,
     }=UseAuth()
+
+    
+    useEffect(()=>{
+        if(user){
+            navigate('/')
+        }
+    },[navigate,user])
+
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -24,6 +35,15 @@ const Register = () => {
         const email = form.email.value
         const password = form.password.value
         const image = form.image.files[0]
+
+        if (
+            !/(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(password)
+        ) {
+            toast.error(
+                "Password must contain at least one uppercase letter, one lowercase letter, and be at least 6 characters long."
+            );
+            return;
+        }
     
         try {
           setLoading(true)
@@ -36,10 +56,10 @@ const Register = () => {
     
           // 3. Save username and photo in firebase
           await updateUserProfile(name, image_url)
-          navigate('/')
+          navigate(location?.state ? location.state : '/')
           toast.success('Signup Successful')
         } catch (err) {
-          console.log(err)
+        //   console.log(err)
           toast.error(err.message)
         }
       }
@@ -49,7 +69,7 @@ const Register = () => {
         try {
           await signInWithGoogle()
     
-          navigate('/')
+          navigate(location?.state ? location.state : '/')
           toast.success('Signup Successful')
         } catch (err) {
           console.log(err)
@@ -62,13 +82,15 @@ const Register = () => {
         try {
           await gitHubLogin()
     
-          navigate('/')
+          navigate(location?.state ? location.state : '/')
           toast.success('Signup Successful')
         } catch (err) {
           console.log(err)
           toast.error(err.message)
         }
       }
+
+      if(user || loading) return
     
     
 

@@ -1,8 +1,76 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa6'
+import UseAuth from '../../hooks/UseAuth'
+import toast from 'react-hot-toast'
+import { useEffect } from 'react'
 
 const Login = () => {
+
+    const navigate = useNavigate()
+  const location = useLocation()
+
+  const {
+    setLoading,user,signIn,
+    loading,
+    signInWithGoogle,
+    gitHubLogin,
+    }=UseAuth()
+
+    useEffect(()=>{
+        if(user){
+            navigate('/')
+        }
+    },[navigate,user])
+
+    const handleSubmit = async e => {
+        e.preventDefault()
+        const form = e.target
+        const email = form.email.value
+        const password = form.password.value
+    
+        try {
+          setLoading(true)
+          // 1. sign in user
+          await signIn(email, password)
+          navigate(location?.state ? location.state : '/')
+          toast.success('SignIn Successful')
+        } catch (err) {
+          console.log(err)
+          toast.error(err.message)
+          setLoading(false)
+        }
+      }
+
+       // handle google signin
+       const handleGoogleSignIn = async () => {
+        try {
+          await signInWithGoogle()
+    
+          navigate(location?.state ? location.state : '/')
+          toast.success('SignIn Successful')
+        } catch (err) {
+          console.log(err)
+          toast.error(err.message)
+        }
+      }
+
+       // handle google signin
+       const handleGithubSignIn = async () => {
+        try {
+          await gitHubLogin()
+    
+          navigate(location?.state ? location.state : '/')
+          toast.success('SignIn Successful')
+        } catch (err) {
+          console.log(err)
+          toast.error(err.message)
+        }
+      }
+
+      if(user || loading) return
+
+
   return (
     <div className='flex justify-center items-center min-h-screen'>
       <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
@@ -13,9 +81,8 @@ const Login = () => {
           </p>
         </div>
         <form
-          noValidate=''
-          action=''
-          className='space-y-6 ng-untouched ng-pristine ng-valid'
+          onSubmit={handleSubmit}
+          className='space-y-6 '
         >
           <div className='space-y-4'>
             <div>
@@ -67,8 +134,8 @@ const Login = () => {
           <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
         </div>
         <div className='flex justify-center my-3 gap-6 border py-2'>
-            <button><FcGoogle size={32}></FcGoogle></button>
-            <button><FaGithub size={32}></FaGithub></button>
+            <button onClick={handleGoogleSignIn}><FcGoogle size={32}></FcGoogle></button>
+            <button onClick={handleGithubSignIn}><FaGithub size={32}></FaGithub></button>
         </div>
         <p className='px-6 text-sm text-center text-gray-400'>
           Don&apos;t have an account yet?{' '}
