@@ -27,6 +27,7 @@
     "react-select": "^5.8.0",
     "react-spinners": "^0.13.8",
     "sort-by": "^1.2.0",
+    "strip-html": "^1.0.2",
     "sweetalert2": "^11.11.0",
     "swiper": "^11.1.4"
   },

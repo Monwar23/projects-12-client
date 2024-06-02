@@ -10,6 +10,7 @@ import { Helmet } from 'react-helmet'
 
 const Register = () => {
 
+ 
     const navigate=useNavigate()
     const location=useLocation()
 
