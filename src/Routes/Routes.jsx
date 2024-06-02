@@ -11,6 +11,17 @@ import ErrorPage from "../shared/ErrorPage";
 import Details from "../Pages/PetListing/Details";
 import Dashboard from "../Layout/Dashboard";
 import PrivateRoutes from "./PrivateRoutes";
+import Statistics from "../Pages/dashboard/Statistics";
+import AddAPets from "../Pages/dashboard/AddAPets";
+import MyAddedPets from "../Pages/dashboard/MyAddedPets";
+import AdoptionRequest from "../Pages/dashboard/AdoptionRequest";
+import CreateDonationCampaign from "../Pages/dashboard/CreateDonationCampaign";
+import MyDonationCampaign from "../Pages/dashboard/MyDonationCampaign";
+import MyDonation from "../Pages/dashboard/MyDonation";
+import AdminRoutes from "./AdminRoutes";
+import ManageUsers from "../Pages/dashboard/ManageUsers";
+import AllPets from "../Pages/dashboard/AllPets";
+import AllDonation from "../Pages/dashboard/AllDonation";
 
  export const router = createBrowserRouter([
     {
@@ -48,6 +59,49 @@ import PrivateRoutes from "./PrivateRoutes";
     },
     {
       path:'/dashboard',
-      element:<PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>
+      element:<PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
+      children:[
+        {
+          index:true,
+          element:<PrivateRoutes><Statistics></Statistics></PrivateRoutes>
+        },
+        {
+          path:'addAPets',
+          element:<PrivateRoutes><AddAPets></AddAPets></PrivateRoutes>
+        },
+        {
+          path:'myAddedPets',
+          element:<PrivateRoutes><MyAddedPets></MyAddedPets></PrivateRoutes>
+        },
+        {
+          path:'adoptionRequest',
+          element:<PrivateRoutes><AdoptionRequest></AdoptionRequest></PrivateRoutes>
+        },
+        {
+          path:'createDonationCampaign',
+          element:<PrivateRoutes><CreateDonationCampaign></CreateDonationCampaign></PrivateRoutes>
+        },
+        {
+          path:'myDonationCampaigns',
+          element:<PrivateRoutes><MyDonationCampaign></MyDonationCampaign></PrivateRoutes>
+        },
+        {
+          path:'myDonations',
+          element:<PrivateRoutes><MyDonation></MyDonation></PrivateRoutes>
+        },
+        {
+          path:'user',
+          element:<PrivateRoutes><AdminRoutes><ManageUsers></ManageUsers></AdminRoutes></PrivateRoutes>
+        },
+        {
+          path:'allPets',
+          element:<PrivateRoutes><AdminRoutes><AllPets></AllPets></AdminRoutes></PrivateRoutes>
+        },
+        {
+          path:'allDonation',
+          element:<PrivateRoutes><AdminRoutes><AllDonation></AllDonation></AdminRoutes></PrivateRoutes>
+        },
+        
+      ]
     }
   ]);
