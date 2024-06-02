@@ -77,7 +77,7 @@ const DetailsModal = ({ setIsEditModalOpen ,isOpen,pet,user}) => {
                       <label className='block text-sm font-medium text-gray-700'>Email</label>
                       <input
                         type='email'
-                        value={user.email}
+                        value={user?.email}
                         disabled
                         className='mt-1 block p-2 w-full rounded-md border border-pink-500 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm'
                       />
