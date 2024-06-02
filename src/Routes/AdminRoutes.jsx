@@ -1,10 +1,11 @@
 import { Navigate } from "react-router-dom";
-import useRole from "../hooks/useRole";
+
 import LoadingSpinner from "../shared/LoadingSpinner";
+import useAdmin from "../hooks/useAdmin";
 
 const AdminRoutes = ({children}) => {
 
-     const [role, isLoading] = useRole()
+     const [role, isLoading] = useAdmin()
 
   if (isLoading) return <LoadingSpinner />
   if (role === 'admin') return children
