@@ -9,6 +9,8 @@ import Login from "../Pages/Single/Login";
 import Register from "../Pages/Single/Register";
 import ErrorPage from "../shared/ErrorPage";
 import Details from "../Pages/PetListing/Details";
+import Dashboard from "../Layout/Dashboard";
+import PrivateRoutes from "./PrivateRoutes";
 
  export const router = createBrowserRouter([
     {
@@ -44,4 +46,8 @@ import Details from "../Pages/PetListing/Details";
       },
       ]
     },
+    {
+      path:'/dashboard',
+      element:<PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>
+    }
   ]);
