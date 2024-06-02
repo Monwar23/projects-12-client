@@ -7,115 +7,126 @@ import { TbBrandCampaignmonitor } from "react-icons/tb";
 import Navbar from "../shared/Navbar";
 
 const Dashboard = () => {
-    const [role] = useAdmin()
+    const [role] = useAdmin();
+
+    const navLinkStyles = ({ isActive }) => 
+        isActive ? "bg-white text-pink-400 font-semibold mt-2" : "font-semibold hover:text-white mt-2";
 
     return (
         <div>
-            <Navbar></Navbar>
+            <Navbar />
             <div className="flex">
                 <div className="w-64 min-h-screen bg-pink-400">
                     <ul className="menu p-4">
-                        {
-                            role === 'admin' ? <>
-
+                        {role === 'admin' ? (
+                            <>
                                 <li>
-                                    <NavLink to="/dashboard/addAPets">
+                                    <NavLink to="/dashboard/addAPets" className={navLinkStyles}>
                                         <MdAdd />
-                                        Add A pets</NavLink>
+                                        Add A pets
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/myAddedPets">
+                                    <NavLink to="/dashboard/myAddedPets" className={navLinkStyles}>
                                         <IoBagAdd />
-                                        My Added Pets</NavLink>
+                                        My Added Pets
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/adoptionRequest">
+                                    <NavLink to="/dashboard/adoptionRequest" className={navLinkStyles}>
                                         <MdRequestPage />
-                                        Adoption Request</NavLink>
+                                        Adoption Request
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/createDonationCampaign">
+                                    <NavLink to="/dashboard/createDonationCampaign" className={navLinkStyles}>
                                         <MdCampaign />
-                                        Create Donation Campaign</NavLink>
+                                        Create Donation Campaign
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/myDonationCampaigns">
+                                    <NavLink to="/dashboard/myDonationCampaigns" className={navLinkStyles}>
                                         <TbBrandCampaignmonitor />
-                                        My Donation Campaigns</NavLink>
+                                        My Donation Campaigns
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/myDonations">
+                                    <NavLink to="/dashboard/myDonations" className={navLinkStyles}>
                                         <MdCampaign />
-                                        My Donations</NavLink>
-                                </li>
-
-                                <li>
-                                    <NavLink to="/dashboard/user">
-                                        <FaUsers></FaUsers>
-                                        All Users</NavLink>
+                                        My Donations
+                                    </NavLink>
                                 </li>
                                 <li>
-
-                                    <NavLink to='/dashboard/allPets'>
+                                    <NavLink to="/dashboard/user" className={navLinkStyles}>
+                                        <FaUsers />
+                                        All Users
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/allPets" className={navLinkStyles}>
                                         <MdPets />
-                                        All Pets</NavLink>
+                                        All Pets
+                                    </NavLink>
                                 </li>
-
                                 <li>
-                                    <NavLink to="/dashboard/allDonation">
+                                    <NavLink to="/dashboard/allDonation" className={navLinkStyles}>
                                         <FaDonate />
-                                        All Donation</NavLink>
+                                        All Donation
+                                    </NavLink>
                                 </li>
-
-
-                            </> :
-                                <>
-                                    <li>
-                                        <NavLink to="/dashboard/addAPets">
-                                            <MdAdd />
-                                            Add A pets</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to="/dashboard/myAddedPets">
-                                            <IoBagAdd />
-                                            My Added Pets</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to="/dashboard/adoptionRequest">
-                                            <MdRequestPage />
-                                            Adoption Request</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to="/dashboard/createDonationCampaign">
-                                            <MdCampaign />
-                                            Create Donation Campaign</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to="/dashboard/myDonationCampaigns">
-                                            <TbBrandCampaignmonitor />
-                                            My Donation Campaigns</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to="/dashboard/myDonations">
-                                            <MdCampaign />
-                                            My Donations</NavLink>
-                                    </li>
-                                </>
-                        }
+                            </>
+                        ) : (
+                            <>
+                                <li>
+                                    <NavLink to="/dashboard/addAPets" className={navLinkStyles}>
+                                        <MdAdd />
+                                        Add A pets
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/myAddedPets" className={navLinkStyles}>
+                                        <IoBagAdd />
+                                        My Added Pets
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/adoptionRequest" className={navLinkStyles}>
+                                        <MdRequestPage />
+                                        Adoption Request
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/createDonationCampaign" className={navLinkStyles}>
+                                        <MdCampaign />
+                                        Create Donation Campaign
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/myDonationCampaigns" className={navLinkStyles}>
+                                        <TbBrandCampaignmonitor />
+                                        My Donation Campaigns
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/myDonations" className={navLinkStyles}>
+                                        <MdCampaign />
+                                        My Donations
+                                    </NavLink>
+                                </li>
+                            </>
+                        )}
                         <div className="divider"></div>
-
                         <li>
-                            <NavLink to="/order/contact">
-
-                                Profile</NavLink>
+                            <NavLink to="/order/contact" className={navLinkStyles}>
+                                Profile
+                            </NavLink>
                         </li>
                     </ul>
                 </div>
                 <div className="flex-1 p-8">
-                    <Outlet></Outlet>
+                    <Outlet />
                 </div>
             </div>
-          
         </div>
     );
 };
