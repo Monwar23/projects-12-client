@@ -6,26 +6,26 @@ import CardListing from "./CardListing";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 
 const PetListing = () => {
-  const axiosCommon = useAxiosCommon();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const axiosCommon = useAxiosCommon()
+  const [searchTerm, setSearchTerm] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("")
 
   const { data: pets = [], isLoading } = useQuery({
     queryKey: ['pets', searchTerm, selectedCategory],
     queryFn: async () => {
-      const params = new URLSearchParams();
-      if (searchTerm) params.append('name', searchTerm);
-      if (selectedCategory) params.append('category', selectedCategory);
-      const res = await axiosCommon.get(`/pets?${params.toString()}`);
-      return res.data;
+      const params = new URLSearchParams()
+      if (searchTerm) params.append('name', searchTerm)
+      if (selectedCategory) params.append('category', selectedCategory)
+      const res = await axiosCommon.get(`/pets?${params.toString()}`)
+      return res.data
     }
   });
 
   const { data: categories = [] } = useQuery({
     queryKey: ['categories'],
     queryFn: async () => {
-      const res = await axiosCommon.get('/petCategory');
-      return res.data;
+      const res = await axiosCommon.get('/petCategory')
+      return res.data
     }
   });
 

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const CardListing = ({ item }) => {
-  const {_id, pet_image_url, pet_name, pet_age, pet_location, pet_short_description } = item;
+  const {_id, pet_image_url, pet_name, pet_age, pet_location, pet_short_description } = item
   
 
  
