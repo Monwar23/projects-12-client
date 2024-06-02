@@ -65,6 +65,8 @@ const updateUserProfile = (name, photo) => {
   const saveUser = async user => {
     const currentUser = {
       email: user?.email,
+      name:user?.displayName,
+      photo:user?.photoURL,
       role: 'user',
     }
     const { data } = await axios.put(

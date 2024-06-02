@@ -56,6 +56,7 @@ const Dashboard = () => {
                                         My Donations
                                     </NavLink>
                                 </li>
+                                <div className="divider"></div>
                                 <li>
                                     <NavLink to="/dashboard/user" className={navLinkStyles}>
                                         <FaUsers />
