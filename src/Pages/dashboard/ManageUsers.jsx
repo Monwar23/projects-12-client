@@ -50,61 +50,89 @@ const ManageUsers = () => {
         })
     }
 
-           
-            if (isLoading) return <LoadingSpinner />
+    const handleDeleteUser = user => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#F472B6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
 
-            return (
-                <div>
-                    <Helmet>
-                        <title>LovingPets | All Users</title>
-                    </Helmet>
-                    <div>
-                        <div className="flex justify-evenly my-4">
-                            <h2 className="text-3xl text-center mb-5">Total Users: {users.length}</h2>
-                        </div>
-                        <div className="overflow-x-auto">
-                            <table className="table table-zebra w-full">
-                                {/* head */}
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th className="text-center">Name</th>
-                                        <th className="text-center">Email</th>
-                                        <th className="text-center">Image</th>
-                                        <th className="text-center">Role</th>
-                                        <th className="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        users.map((user, index) => <tr key={user._id}>
-                                            <th className="text-center">{index + 1}</th>
-                                            <td className="text-center">{user.name}</td>
-                                            <td className="text-center">{user.email}</td>
-                                            <td className="flex justify-center"><img className="rounded-full" src={user.photo} alt="" /></td>
-                                            <td className="text-center">
-                                                {user.role === 'admin' ? 'Admin' : <button
-                                                    onClick={() => handleMakeAdmin(user)}
-                                                    className="btn border-2 border-pink-500 text-pink-500 hover:text-white hover:bg-pink-500 hover:border-pink-500">
-                                                    Make Admin
-                                                </button>}
-                                            </td>
-                                            <td className="text-center">
-                                                <button
-                                                    // onClick={() => handleDeleteUser(user)}
-                                                    className="btn btn-ghost btn-lg">
-                                                    <FaTrashAlt className="text-red-600"></FaTrashAlt>
-                                                </button>
-                                            </td>
-                                        </tr>)
-                                    }
+                axiosSecure.delete(`/users/${user._id}`)
+                    .then(res => {
+                        if (res.data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        });
+    }
 
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+
+
+    if (isLoading) return <LoadingSpinner />
+
+    return (
+        <div>
+            <Helmet>
+                <title>LovingPets | All Users</title>
+            </Helmet>
+            <div>
+                <div className="flex justify-evenly my-4">
+                    <h2 className="text-3xl text-center mb-5">Total Users: {users.length}</h2>
                 </div>
-            );
-        };
+                <div className="overflow-x-auto">
+                    <table className="table table-zebra w-full">
+                        {/* head */}
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th className="text-center">Name</th>
+                                <th className="text-center">Email</th>
+                                <th className="text-center">Image</th>
+                                <th className="text-center">Role</th>
+                                <th className="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                users.map((user, index) => <tr key={user._id}>
+                                    <th className="text-center">{index + 1}</th>
+                                    <td className="text-center">{user.name}</td>
+                                    <td className="text-center">{user.email}</td>
+                                    <td className="flex justify-center"><img className="rounded-full" src={user.photo} alt="" /></td>
+                                    <td className="text-center">
+                                        {user.role === 'admin' ? 'Admin' : <button
+                                            onClick={() => handleMakeAdmin(user)}
+                                            className="btn border-2 border-pink-500 text-pink-500 hover:text-white hover:bg-pink-500 hover:border-pink-500">
+                                            Make Admin
+                                        </button>}
+                                    </td>
+                                    <td className="text-center">
+                                        <button
+                                            onClick={() => handleDeleteUser(user)}
+                                            className="btn btn-ghost btn-lg">
+                                            <FaTrashAlt className="text-red-600"></FaTrashAlt>
+                                        </button>
+                                    </td>
+                                </tr>)
+                            }
 
-        export default ManageUsers;
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default ManageUsers;
