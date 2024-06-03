@@ -102,12 +102,12 @@ const UpdatePets = () => {
                     <label className="block text-gray-700">Pet Category:</label>
                     <select 
                         name="pet_category" 
-                        defaultValue={pet_category.value} 
+                        defaultValue={pet_category.value?pet_category.value : pet_category} 
                         className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
                         required
                     >
                         {categories.map((category) => (
-                            <option key={category.category} value={category.category}>
+                            <option key={category._id} value={category.category}>
                                 {category.category}
                             </option>
                         ))}

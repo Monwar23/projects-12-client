@@ -23,6 +23,7 @@ import ManageUsers from "../Pages/dashboard/ManageUsers";
 import AllPets from "../Pages/dashboard/AllPets";
 import AllDonation from "../Pages/dashboard/AllDonation";
 import UpdatePets from "../Pages/dashboard/UpdatePets";
+import UpdatePetsAdmin from "../Pages/dashboard/UpdatePetsAdmin";
 
  export const router = createBrowserRouter([
     {
@@ -105,6 +106,11 @@ import UpdatePets from "../Pages/dashboard/UpdatePets";
         {
           path:'updatePets/:id',
           element:<PrivateRoutes><UpdatePets></UpdatePets></PrivateRoutes>,
+          loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/allPets/${params.id}`)
+        },
+        {
+          path:'updatePetsAdmin/:id',
+          element:<PrivateRoutes><AdminRoutes><UpdatePetsAdmin></UpdatePetsAdmin></AdminRoutes></PrivateRoutes>,
           loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/allPets/${params.id}`)
         },
         
