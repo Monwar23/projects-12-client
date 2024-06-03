@@ -1,9 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxiosSecures from "../../hooks/useAxiosSecures";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import { Helmet } from "react-helmet";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+
 
 const ManageUsers = () => {
 
@@ -107,7 +108,7 @@ const ManageUsers = () => {
                                     <th className="text-center">{index + 1}</th>
                                     <td className="text-center">{user.name}</td>
                                     <td className="text-center">{user.email}</td>
-                                    <td className="flex justify-center"><img className="rounded-full" src={user.photo} alt="" /></td>
+                                    <td className="flex justify-center"><img className="rounded-full lg:h-24 lg:w-24 h-14 w-14" src={user.photo} alt="" /></td>
                                     <td className="text-center">
                                         {user.role === 'admin' ? 'Admin' : <button
                                             onClick={() => handleMakeAdmin(user)}
@@ -117,6 +118,7 @@ const ManageUsers = () => {
                                     </td>
                                     <td className="text-center">
                                         <button
+                                        
                                             onClick={() => handleDeleteUser(user)}
                                             className="btn btn-ghost btn-lg">
                                             <FaTrashAlt className="text-red-600"></FaTrashAlt>

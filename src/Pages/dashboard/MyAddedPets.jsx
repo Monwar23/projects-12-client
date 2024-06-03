@@ -12,28 +12,33 @@ import DeleteModal from '../../Modal/DeleteModal';
 import StatusModal from '../../Modal/StatusModal'; 
 
 const MyAddedPets = () => {
-    const axiosSecure = useAxiosSecures()
-    const { user } = UseAuth()
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
-    const [isStatusModalOpen, setIsStatusModalOpen] = useState(false)
-    const [deleteId, setDeleteId] = useState(null)
-    const [updateId, setUpdateId] = useState(null)
+    const axiosSecure = useAxiosSecures();
+    const { user } = UseAuth();
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
+    const [updateId, setUpdateId] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const closeDeleteModal = () => {
-        setIsDeleteModalOpen(false)
+        setIsDeleteModalOpen(false);
     };
 
     const closeStatusModal = () => {
-        setIsStatusModalOpen(false)
+        setIsStatusModalOpen(false);
     };
 
     const { data: allPets = [], isLoading, refetch } = useQuery({
         queryKey: ['allPets', user?.email],
         queryFn: async () => {
-            const { data } = await axiosSecure(`/allPets/email/${user?.email}`)
-            return data
+            const { data } = await axiosSecure(`/allPets/email/${user?.email}`);
+            return data;
         },
     });
+
+    const pageSize = 10;
+    const pageCount = Math.ceil(allPets.length / pageSize);
+    const paginatedPets = allPets.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
     const { mutateAsync: mutateDelete } = useMutation({
         mutationFn: async id => {
@@ -41,37 +46,37 @@ const MyAddedPets = () => {
             return data;
         },
         onSuccess: data => {
-            console.log(data)
+            console.log(data);
             refetch();
-            toast.success('Successfully deleted.')
+            toast.success('Successfully deleted.');
         },
     });
 
     const handleDelete = async id => {
         try {
-            await mutateDelete(id)
+            await mutateDelete(id);
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     };
 
     const { mutateAsync: mutateStatus } = useMutation({
         mutationFn: async id => {
-            const { data } = await axiosSecure.patch(`/allPets/${id}`)
+            const { data } = await axiosSecure.patch(`/allPets/${id}`);
             return data;
         },
         onSuccess: data => {
             console.log(data);
             refetch();
-            toast.success('Successfully Updated.')
+            toast.success('Successfully Updated.');
         },
     });
 
     const handleStatus = async id => {
         try {
-            await mutateStatus(id)
+            await mutateStatus(id);
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     };
 
@@ -150,7 +155,7 @@ const MyAddedPets = () => {
 
     const tableInstance = useTable({
         columns,
-        data: allPets,
+        data: paginatedPets,
     });
 
     const {
@@ -160,6 +165,10 @@ const MyAddedPets = () => {
         rows,
         prepareRow,
     } = tableInstance;
+
+    const changePage = page => {
+        setCurrentPage(page);
+    };
 
     if (isLoading) return <LoadingSpinner />;
 
@@ -197,6 +206,17 @@ const MyAddedPets = () => {
                         })}
                     </tbody>
                 </table>
+            </div>
+            <div className="flex justify-center mt-4">
+                <nav>
+                    <ul className="pagination flex flex-wrap gap-3">
+                        {[...Array(pageCount).keys()].map(page => (
+                            <li key={page} className={`page-item ${currentPage === page + 1 ? 'active bg-pink-500 text-white border border-pink-500 px-3 py-1 rounded-md' : 'border border-pink-500 px-3 py-1 rounded-md'}`}>
+                                <button className="page-link " onClick={() => changePage(page + 1)}>{page + 1}</button>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
             </div>
             <StatusModal
                 isOpen={isStatusModalOpen}
