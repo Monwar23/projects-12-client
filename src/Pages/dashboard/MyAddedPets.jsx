@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { useQuery } from "@tanstack/react-query";
+import { useMemo, useState } from 'react';
+import { useMutation, useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import useAxiosSecures from "../../hooks/useAxiosSecures";
 import UseAuth from "../../hooks/UseAuth";
@@ -7,18 +7,46 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useTable } from 'react-table';
+import toast from 'react-hot-toast';
+import DeleteModal from '../../Modal/DeleteModal';
 
 const MyAddedPets = () => {
     const axiosSecure = useAxiosSecures();
     const { user } = UseAuth();
+    const [isOpen, setIsOpen] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
 
-    const { data: allPets = [], isLoading } = useQuery({
-        queryKey: ['allPets'],
+    const closeModal = () => {
+        setIsOpen(false);
+    };
+
+    const { data: allPets = [], isLoading, refetch } = useQuery({
+        queryKey: ['allPets', user?.email],
         queryFn: async () => {
             const { data } = await axiosSecure(`/allPets/email/${user?.email}`);
             return data;
         },
     });
+
+    const { mutateAsync } = useMutation({
+        mutationFn: async id => {
+            const { data } = await axiosSecure.delete(`/allPets/${id}`);
+            return data;
+        },
+        onSuccess: data => {
+            console.log(data);
+            refetch();
+            toast.success('Successfully deleted.');
+        },
+    });
+
+    const handleDelete = async id => {
+        try {
+            await mutateAsync(id);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const columns = useMemo(() => [
         {
@@ -68,18 +96,20 @@ const MyAddedPets = () => {
         {
             Header: 'Action',
             Cell: ({ row }) => (
-                <div className="text-center">
+                <div className="flex justify-center">
                     <Link>
                         <button className="btn btn-ghost btn-lg">
                             <FaEdit className="text-red-600" />
                         </button>
                     </Link>
-                    <button
-                        // onClick={() => handleDeleteUser(row.original)}
-                        className="btn btn-ghost btn-lg"
-                    >
-                        <FaTrashAlt className="text-red-600" />
-                    </button>
+                    <div>
+                        <button
+                            onClick={() => { setDeleteId(row.original._id); setIsOpen(true); }}
+                            className="btn btn-ghost btn-lg"
+                        >
+                            <FaTrashAlt className="text-red-600" />
+                        </button>
+                    </div>
                 </div>
             ),
         },
@@ -135,6 +165,12 @@ const MyAddedPets = () => {
                     </tbody>
                 </table>
             </div>
+            <DeleteModal
+                isOpen={isOpen}
+                closeModal={closeModal}
+                handleDelete={handleDelete}
+                id={deleteId}
+            />
         </div>
     );
 };

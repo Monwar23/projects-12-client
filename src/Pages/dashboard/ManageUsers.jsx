@@ -9,8 +9,6 @@ const ManageUsers = () => {
 
     const axiosSecure = useAxiosSecures()
 
-
-
     const {
         data: users = [],
         isLoading,
