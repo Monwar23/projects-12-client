@@ -63,7 +63,6 @@ const AddAPets = () => {
 
     const categoryOptions = categories.map(category => ({
         value: category.category,
-        label: category.category
     }));
 
     return (

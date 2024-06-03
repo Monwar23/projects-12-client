@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecures from "../../hooks/useAxiosSecures";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 
 const AllPets = () => {
 
@@ -53,7 +54,7 @@ const AllPets = () => {
                                     <th className="text-center">{index + 1}</th>
                                     <td className="flex justify-center"><img className="rounded-full w-20 h-10 lg:h-20" src={pet.pet_image_url} alt="" /></td>
                                     <td className="text-center">{pet.pet_name}</td>
-                                    <td className="text-center">{pet.pet_category}</td>
+                                    <td className="text-center">{pet.pet_category.value? pet.pet_category.value : pet.pet_category}</td>
                                     <td className="text-center">{pet.pet_age}</td>
                                     <td className="text-center">{pet.pet_location}</td>
 
@@ -69,11 +70,12 @@ const AllPets = () => {
                                         </button>}
                                     </td>
                                     <td className="text-center">
+                                    <Link>
                                     <button
-                                            // onClick={() => handleDeletePet(pet)}
                                             className="btn btn-ghost btn-lg">
                                             <FaEdit className="text-red-600"></FaEdit>
                                         </button>
+                                    </Link>
                                         <button
                                             // onClick={() => handleDeletePet(pet)}
                                             className="btn btn-ghost btn-lg">
