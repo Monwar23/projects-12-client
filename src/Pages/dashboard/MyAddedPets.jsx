@@ -82,12 +82,19 @@ const MyAddedPets = () => {
             accessor: 'pet_status',
             Cell: ({ row }) => (
                 <div className="text-center">
-                    {row.original.pet_status === 'adopted' ? 'Adopted' : (
+                    {row.original.pet_status === 'adopted' ? 
+                     <button
+                     // onClick={() => handleMakeAdopt(row.original)}
+                     className="btn border-2 border-pink-500 text-pink-500 hover:text-white hover:bg-pink-500 hover:border-pink-500"
+                 >
+                     Adopted
+                 </button>
+                     : (
                         <button
                             // onClick={() => handleMakeAdopt(row.original)}
                             className="btn border-2 border-pink-500 text-pink-500 hover:text-white hover:bg-pink-500 hover:border-pink-500"
                         >
-                            Adopted It
+                            Not Adopted
                         </button>
                     )}
                 </div>
@@ -97,7 +104,7 @@ const MyAddedPets = () => {
             Header: 'Action',
             Cell: ({ row }) => (
                 <div className="flex justify-center">
-                    <Link>
+                    <Link to={`/dashboard/updatePets/${row.original._id}`}>
                         <button className="btn btn-ghost btn-lg">
                             <FaEdit className="text-red-600" />
                         </button>
