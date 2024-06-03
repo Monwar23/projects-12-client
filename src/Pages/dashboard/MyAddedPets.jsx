@@ -9,42 +9,69 @@ import { Helmet } from "react-helmet";
 import { useTable } from 'react-table';
 import toast from 'react-hot-toast';
 import DeleteModal from '../../Modal/DeleteModal';
+import StatusModal from '../../Modal/StatusModal'; 
 
 const MyAddedPets = () => {
-    const axiosSecure = useAxiosSecures();
-    const { user } = UseAuth();
-    const [isOpen, setIsOpen] = useState(false);
-    const [deleteId, setDeleteId] = useState(null);
+    const axiosSecure = useAxiosSecures()
+    const { user } = UseAuth()
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+    const [isStatusModalOpen, setIsStatusModalOpen] = useState(false)
+    const [deleteId, setDeleteId] = useState(null)
+    const [updateId, setUpdateId] = useState(null)
 
-    const closeModal = () => {
-        setIsOpen(false);
+    const closeDeleteModal = () => {
+        setIsDeleteModalOpen(false)
+    };
+
+    const closeStatusModal = () => {
+        setIsStatusModalOpen(false)
     };
 
     const { data: allPets = [], isLoading, refetch } = useQuery({
         queryKey: ['allPets', user?.email],
         queryFn: async () => {
-            const { data } = await axiosSecure(`/allPets/email/${user?.email}`);
-            return data;
+            const { data } = await axiosSecure(`/allPets/email/${user?.email}`)
+            return data
         },
     });
 
-    const { mutateAsync } = useMutation({
+    const { mutateAsync: mutateDelete } = useMutation({
         mutationFn: async id => {
             const { data } = await axiosSecure.delete(`/allPets/${id}`);
             return data;
         },
         onSuccess: data => {
-            console.log(data);
+            console.log(data)
             refetch();
-            toast.success('Successfully deleted.');
+            toast.success('Successfully deleted.')
         },
     });
 
     const handleDelete = async id => {
         try {
-            await mutateAsync(id);
+            await mutateDelete(id)
         } catch (err) {
-            console.log(err);
+            console.log(err)
+        }
+    };
+
+    const { mutateAsync: mutateStatus } = useMutation({
+        mutationFn: async id => {
+            const { data } = await axiosSecure.patch(`/allPets/${id}`)
+            return data;
+        },
+        onSuccess: data => {
+            console.log(data);
+            refetch();
+            toast.success('Successfully Updated.')
+        },
+    });
+
+    const handleStatus = async id => {
+        try {
+            await mutateStatus(id)
+        } catch (err) {
+            console.log(err)
         }
     };
 
@@ -84,14 +111,13 @@ const MyAddedPets = () => {
                 <div className="text-center">
                     {row.original.pet_status === 'adopted' ? 
                      <button
-                     // onClick={() => handleMakeAdopt(row.original)}
-                     className="btn border-2 border-pink-500 text-pink-500 hover:text-white hover:bg-pink-500 hover:border-pink-500"
+                     className="btn border-2 border-pink-500 text-white bg-pink-500 hover:text-white hover:bg-pink-500 hover:border-pink-500"
                  >
                      Adopted
                  </button>
                      : (
                         <button
-                            // onClick={() => handleMakeAdopt(row.original)}
+                            onClick={() => {setUpdateId(row.original._id) ; setIsStatusModalOpen(true)}}
                             className="btn border-2 border-pink-500 text-pink-500 hover:text-white hover:bg-pink-500 hover:border-pink-500"
                         >
                             Not Adopted
@@ -111,7 +137,7 @@ const MyAddedPets = () => {
                     </Link>
                     <div>
                         <button
-                            onClick={() => { setDeleteId(row.original._id); setIsOpen(true); }}
+                            onClick={() => { setDeleteId(row.original._id); setIsDeleteModalOpen(true); }}
                             className="btn btn-ghost btn-lg"
                         >
                             <FaTrashAlt className="text-red-600" />
@@ -172,9 +198,15 @@ const MyAddedPets = () => {
                     </tbody>
                 </table>
             </div>
+            <StatusModal
+                isOpen={isStatusModalOpen}
+                closeModal={closeStatusModal}
+                handleStatus={handleStatus}
+                id={updateId}
+            />
             <DeleteModal
-                isOpen={isOpen}
-                closeModal={closeModal}
+                isOpen={isDeleteModalOpen}
+                closeModal={closeDeleteModal}
                 handleDelete={handleDelete}
                 id={deleteId}
             />

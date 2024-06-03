@@ -100,7 +100,7 @@ import UpdatePets from "../Pages/dashboard/UpdatePets";
         },
         {
           path:'allDonation',
-          element:<PrivateRoutes></PrivateRoutes>
+          element:<PrivateRoutes><AdminRoutes><AllDonation></AllDonation></AdminRoutes></PrivateRoutes>
         },
         {
           path:'updatePets/:id',
