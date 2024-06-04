@@ -24,6 +24,7 @@ import AllPets from "../Pages/dashboard/AllPets";
 import AllDonation from "../Pages/dashboard/AllDonation";
 import UpdatePets from "../Pages/dashboard/UpdatePets";
 import UpdatePetsAdmin from "../Pages/dashboard/UpdatePetsAdmin";
+import DonationDetails from "../Pages/donationCampaigns/DonationDetails";
 
  export const router = createBrowserRouter([
     {
@@ -55,6 +56,12 @@ import UpdatePetsAdmin from "../Pages/dashboard/UpdatePetsAdmin";
           path:'/details/:id',
           element:<Details></Details>,
           loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/pets/${params.id}`)
+
+      },
+        {
+          path:'/donationDetails/:id',
+          element:<DonationDetails></DonationDetails>,
+          loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/campaignsPet/${params.id}`)
 
       },
       ]

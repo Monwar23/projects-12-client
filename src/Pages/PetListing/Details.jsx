@@ -38,7 +38,7 @@ const Details = () => {
                 <div className="md:flex">
                     <div className="md:flex-shrink-0">
                         <img
-                            className="h-64 w-full object-cover md:h-full md:w-64"
+                            className="h-64 w-full object-cover md:h-full md:w-96"
                             src={pet_image_url}
                             alt={pet_name}
                         />

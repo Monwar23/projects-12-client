@@ -23,7 +23,7 @@ const CardDonation = ({ item }) => {
           #{pet_name}
         </span>
       </div>
-      <Link to={`/details/${_id}`} className="flex justify-center my-4
+      <Link to={`/donationDetails/${_id}`} className="flex justify-center my-4
       ">
         <button
          className="btn btn-outline border-b-4 text-pink-500 hover:bg-pink-500 hover:text-white hover:border-none mr-3 px-6">View Details</button>
