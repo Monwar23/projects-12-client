@@ -1,7 +1,13 @@
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { Fragment } from 'react';
+import CheckOutForm from './CheckOutForm';
 
 const DonationModal = ({isOpen,setIsEditModalOpen,pet,user}) => {
+
+    const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
+
     return (
         <Transition appear show={isOpen} as={Fragment}>
     <Dialog
@@ -40,7 +46,7 @@ const DonationModal = ({isOpen,setIsEditModalOpen,pet,user}) => {
                 {pet.pet_name}
               </DialogTitle>
               <div className='mt-2 w-full'>
-              <form className='space-y-4'>
+              {/* <form className='space-y-4'>
               <div>
                       <label className='block text-sm font-medium text-gray-700'></label>
                       <img  src={pet.pet_image_url} alt={pet.pet_name} className='mt-1 block w-full h-72 rounded-md border-gray-300 shadow-sm' />
@@ -104,7 +110,11 @@ const DonationModal = ({isOpen,setIsEditModalOpen,pet,user}) => {
                         Submit
                       </button>
                     </div>
-                  </form>
+                  </form> */}
+
+                  <Elements stripe={stripePromise}>
+                    <CheckOutForm pet={pet} user={user} setIsEditModalOpen={setIsEditModalOpen}></CheckOutForm>
+                  </Elements>
 
               </div>
               <hr className='mt-8 ' />

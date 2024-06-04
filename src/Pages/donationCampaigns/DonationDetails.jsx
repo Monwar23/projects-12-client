@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import UseAuth from '../../hooks/UseAuth';
 import DonationModal from './DonationModal';
