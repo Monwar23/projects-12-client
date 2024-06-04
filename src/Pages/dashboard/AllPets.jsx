@@ -10,8 +10,6 @@ const AllPets = () => {
 
     const axiosSecure = useAxiosSecures()
 
-
-
     const {
         data: allPets = [],
         isLoading,
