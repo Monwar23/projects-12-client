@@ -1,14 +1,14 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
-import useAxiosCommon from "../../hooks/useAxiosCommon";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosSecures from "../../hooks/useAxiosSecures";
+import { useState } from "react";
 import toast from "react-hot-toast";
-
+import useAxiosCommon from "../../hooks/useAxiosCommon";
+import useAxiosSecures from "../../hooks/useAxiosSecures";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { imageUpload } from "../../utilies";
 
 const UpdatePets = () => {
     const axiosCommon = useAxiosCommon();
     const axiosSecure = useAxiosSecures();
-
     const pets = useLoaderData();
     const navigate = useNavigate();
 
@@ -33,6 +33,8 @@ const UpdatePets = () => {
         email
     } = pets;
 
+    const [imageUrl, setImageUrl] = useState(pet_image_url);
+
     const handleUpdate = async (e) => {
         e.preventDefault();
         const form = e.target;
@@ -43,10 +45,16 @@ const UpdatePets = () => {
         const pet_short_description = form.pet_short_description.value;
         const pet_long_description = form.pet_long_description.value;
         const pet_status = form.pet_status.value;
-        
+
+        let imageUrl = pet_image_url;
+
+        const imageFile = form.pet_image_url.files[0];
+        if (imageFile) {
+            imageUrl = await imageUpload(imageFile);
+        }
 
         const formData = { 
-            pet_image_url,
+            pet_image_url: imageUrl,
             pet_name, 
             pet_age, 
             pet_location, 
@@ -102,7 +110,7 @@ const UpdatePets = () => {
                     <label className="block text-gray-700">Pet Category:</label>
                     <select 
                         name="pet_category" 
-                        defaultValue={pet_category.value?pet_category.value : pet_category} 
+                        defaultValue={pet_category.value ? pet_category.value : pet_category} 
                         className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
                         required
                     >
@@ -142,6 +150,18 @@ const UpdatePets = () => {
                         <option value="adopted">Adopted</option>
                         <option value="not adopted">Not Adopted</option>
                     </select>
+                </div>
+                <div>
+                    <label className="block text-gray-700">Pet Image:</label>
+                    <div className="mt-2">
+                        {imageUrl && <img src={imageUrl} alt="Pet" className="w-full h-48 object-cover mb-4 rounded-md" />}
+                        <input 
+                            type="file" 
+                            name="pet_image_url" 
+                            className="w-full p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                            accept="image/*"
+                        />
+                    </div>
                 </div>
                 <button 
                     type="submit" 

@@ -1,14 +1,14 @@
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useAxiosSecures from '../../hooks/useAxiosSecures';
 import useAxiosCommon from '../../hooks/useAxiosCommon';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { imageUpload } from '../../utilies';
 
 const UpdatePetsAdmin = () => {
-
     const axiosCommon = useAxiosCommon();
     const axiosSecure = useAxiosSecures();
-
     const pets = useLoaderData();
     const navigate = useNavigate();
 
@@ -33,6 +33,8 @@ const UpdatePetsAdmin = () => {
         email
     } = pets;
 
+    const [imageUrl, setImageUrl] = useState(pet_image_url);
+
     const handleUpdate = async (e) => {
         e.preventDefault();
         const form = e.target;
@@ -43,10 +45,16 @@ const UpdatePetsAdmin = () => {
         const pet_short_description = form.pet_short_description.value;
         const pet_long_description = form.pet_long_description.value;
         const pet_status = form.pet_status.value;
-        
+
+        let imageUrl = pet_image_url;
+
+        const imageFile = form.pet_image_url.files[0];
+        if (imageFile) {
+            imageUrl = await imageUpload(imageFile);
+        }
 
         const formData = { 
-            pet_image_url,
+            pet_image_url: imageUrl,
             pet_name, 
             pet_age, 
             pet_location, 
@@ -64,94 +72,105 @@ const UpdatePetsAdmin = () => {
         }
     };
 
-
     return (
         <div className="max-w-2xl mx-auto bg-white p-8 shadow-md rounded-lg">
-        <h2 className="text-2xl font-bold text-center text-pink-500 mb-6">Update {pet_name}</h2>
-        <form onSubmit={handleUpdate} className="space-y-6">
-            <div>
-                <label className="block text-gray-700">Pet Name:</label>
-                <input 
-                    type="text" 
-                    name="pet_name" 
-                    defaultValue={pet_name} 
-                    className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                    required 
-                />
-            </div>
-            <div>
-                <label className="block text-gray-700">Pet Age:</label>
-                <input 
-                    type="number" 
-                    name="pet_age" 
-                    defaultValue={pet_age} 
-                    className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                    required 
-                />
-            </div>
-            <div>
-                <label className="block text-gray-700">Pet Location:</label>
-                <input 
-                    type="text" 
-                    name="pet_location" 
-                    defaultValue={pet_location} 
-                    className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                    required 
-                />
-            </div>
-            <div>
-                <label className="block text-gray-700">Pet Category:</label>
-                <select 
-                    name="pet_category" 
-                    defaultValue={pet_category.value?pet_category.value:pet_category} 
-                    className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                    required
+            <h2 className="text-2xl font-bold text-center text-pink-500 mb-6">Update {pet_name}</h2>
+            <form onSubmit={handleUpdate} className="space-y-6">
+                <div>
+                    <label className="block text-gray-700">Pet Name:</label>
+                    <input 
+                        type="text" 
+                        name="pet_name" 
+                        defaultValue={pet_name} 
+                        className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                        required 
+                    />
+                </div>
+                <div>
+                    <label className="block text-gray-700">Pet Age:</label>
+                    <input 
+                        type="number" 
+                        name="pet_age" 
+                        defaultValue={pet_age} 
+                        className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                        required 
+                    />
+                </div>
+                <div>
+                    <label className="block text-gray-700">Pet Location:</label>
+                    <input 
+                        type="text" 
+                        name="pet_location" 
+                        defaultValue={pet_location} 
+                        className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                        required 
+                    />
+                </div>
+                <div>
+                    <label className="block text-gray-700">Pet Category:</label>
+                    <select 
+                        name="pet_category" 
+                        defaultValue={pet_category.value ? pet_category.value : pet_category} 
+                        className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                        required
+                    >
+                        {categories.map((category) => (
+                            <option key={category._id} value={category.category}>
+                                {category.category}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div>
+                    <label className="block text-gray-700">Short Description:</label>
+                    <textarea 
+                        name="pet_short_description" 
+                        defaultValue={pet_short_description} 
+                        className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                        required 
+                    />
+                </div>
+                <div>
+                    <label className="block text-gray-700">Long Description:</label>
+                    <textarea 
+                        name="pet_long_description" 
+                        defaultValue={pet_long_description} 
+                        className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                        required 
+                    />
+                </div>
+                <div>
+                    <label className="block text-gray-700">Pet Status:</label>
+                    <select 
+                        name="pet_status" 
+                        defaultValue={pet_status} 
+                        className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                        required
+                    >
+                        <option value="adopted">Adopted</option>
+                        <option value="not adopted">Not Adopted</option>
+                    </select>
+                </div>
+                <div>
+                    <label className="block text-gray-700">Pet Image:</label>
+                    <div className="mt-2">
+                        {imageUrl && <img src={imageUrl} alt="Pet" className="w-full h-48 object-cover mb-4 rounded-md" />}
+                        <input 
+                            type="file" 
+                            name="pet_image_url" 
+                            className="w-full p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                            accept="image/*"
+                        />
+                    </div>
+                </div>
+                <button 
+                    type="submit" 
+                    className="w-full btn btn-outline rounded-full border-b-4 text-pink-500 hover:bg-pink-500 hover:text-white hover:border-none"
                 >
-                    {categories.map((category) => (
-                        <option key={category.category} value={category.category}>
-                            {category.category}
-                        </option>
-                    ))}
-                </select>
-            </div>
-            <div>
-                <label className="block text-gray-700">Short Description:</label>
-                <textarea 
-                    name="pet_short_description" 
-                    defaultValue={pet_short_description} 
-                    className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                    required 
-                />
-            </div>
-            <div>
-                <label className="block text-gray-700">Long Description:</label>
-                <textarea 
-                    name="pet_long_description" 
-                    defaultValue={pet_long_description} 
-                    className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                    required 
-                />
-            </div>
-            <div>
-                <label className="block text-gray-700">Pet Status:</label>
-                <select 
-                    name="pet_status" 
-                    defaultValue={pet_status} 
-                    className="w-full mt-2 p-2 border border-pink-500 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                    required
-                >
-                    <option value="adopted">Adopted</option>
-                    <option value="not adopted">Not Adopted</option>
-                </select>
-            </div>
-            <button 
-                type="submit" 
-                className="w-full btn btn-outline rounded-full border-b-4 text-pink-500 hover:bg-pink-500 hover:text-white hover:border-none"
-            >
-                Update Pet
-            </button>
-        </form>
-    </div>
+                    Update Pet
+                </button>
+            </form>
+        </div>
     );
 };
 
