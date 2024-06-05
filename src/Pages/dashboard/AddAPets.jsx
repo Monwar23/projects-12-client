@@ -34,6 +34,7 @@ const AddAPets = () => {
     };
 
     const onSubmit = async data => {
+       try{
         const image_url = await imageUpload(data.petImageUrl[0]);
         const petData = { ...data, petImageUrl: image_url };
 
@@ -59,6 +60,10 @@ const AddAPets = () => {
             navigate('/dashboard/myAddedPets')
            toast.success(`${data.petName} is added to the Your Pet Collection.`)
         }
+       }
+       catch (error) {
+        toast.error(error.message);
+    }
     };
 
     const categoryOptions = categories.map(category => ({
