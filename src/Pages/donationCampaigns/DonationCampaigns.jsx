@@ -20,7 +20,6 @@ const DonationCampaigns = () => {
         },
     })
 
-    // console.log(campaignsPet);
     if (isLoading) return <LoadingSpinner></LoadingSpinner>;
 
 
@@ -31,7 +30,7 @@ const DonationCampaigns = () => {
       </Helmet>
            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
           {campaignsPet.map(item => (
-            <CardDonation key={item._id} item={item}></CardDonation>
+            <CardDonation key={item._id} item={item} ></CardDonation>
           ))}
         </div>
         </div>
