@@ -12,6 +12,7 @@ const MyDonationCampaign = () => {
     const axiosSecure = useAxiosSecures();
     const { user } = UseAuth();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isViewModalOpen, setIsViewModalOpen] = useState(false);
     const [selectedCampaign, setSelectedCampaign] = useState(null);
     const [newStatus, setNewStatus] = useState('');
 
@@ -22,6 +23,14 @@ const MyDonationCampaign = () => {
             return data;
         },
     });
+    const { data: payments = [] } = useQuery({
+        queryKey: ['payments'],
+        queryFn: async () => {
+            const { data } = await axiosSecure(`/payments`);
+            return data;
+        },
+    });
+    // console.log(payments);
 
     const calculateProgress = (donatedAmount, maximumAmount) => {
         return (donatedAmount / maximumAmount) * 100;
@@ -37,6 +46,17 @@ const MyDonationCampaign = () => {
         setIsModalOpen(false);
         setSelectedCampaign(null);
     };
+
+    const handleViewClick = (campaign) => {
+        setSelectedCampaign(campaign);
+        setIsViewModalOpen(true);
+    };
+
+    const handleCloseViewModal = () => {
+        setIsViewModalOpen(false);
+        setSelectedCampaign(null);
+    };
+
 
     const handleStatusChange = async (e) => {
         e.preventDefault();
@@ -106,7 +126,7 @@ const MyDonationCampaign = () => {
                                         </button>
                                     </td>
                                     <td className="text-center">
-                                        <button className="btn border border-pink-500 text-pink-500 hover:text-white hover:bg-pink-500">
+                                        <button  onClick={() => handleViewClick(donation)} className="btn border border-pink-500 text-pink-500 hover:text-white hover:bg-pink-500">
                                             View Donation
                                         </button>
                                     </td>
@@ -134,6 +154,22 @@ const MyDonationCampaign = () => {
                                 <button type="button" onClick={handleCloseModal} className="btn bg-red-500 text-white">Cancel</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+            {isViewModalOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
+                    <div className="bg-white p-4 rounded-lg">
+                        <h3 className="font-bold text-lg text-center text-pink-500 mb-4">Campaign Details</h3>
+                        <div>
+                            <p><strong>Pet Name:</strong> {selectedCampaign.pet_name}</p>
+                            <p><strong>Maximum Donation Amount:</strong> {selectedCampaign.maximum_donation_amount}</p>
+                            <p><strong>Donated Amount:</strong> {selectedCampaign.donated_amount}</p>
+                            <p><strong>Status:</strong> {selectedCampaign.status}</p>
+                            <div className="modal-action mt-6">
+                                <button onClick={handleCloseViewModal} className="btn bg-red-500 text-white">Close</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
