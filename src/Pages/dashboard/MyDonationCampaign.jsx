@@ -3,9 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet";
 import useAxiosSecures from "../../hooks/useAxiosSecures";
 import UseAuth from "../../hooks/UseAuth";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import Swal from "sweetalert2";
+import { Link } from 'react-router-dom';
 
 const MyDonationCampaign = () => {
     const axiosSecure = useAxiosSecures();
@@ -76,8 +77,9 @@ const MyDonationCampaign = () => {
                                 <th className="text-center">Pet Name</th>
                                 <th className="text-center">Maximum Donation Amount</th>
                                 <th className="text-center">Donation Progress</th>
-                                <th className="text-center">Pause</th>
                                 <th className="text-center">Action</th>
+                                <th className="text-center">Pause</th>
+                                <th className="text-center">Details</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -89,19 +91,26 @@ const MyDonationCampaign = () => {
                                     <td className="text-center">
                                         <progress className="progress progress-success w-56" value={calculateProgress(donation.donated_amount, donation.maximum_donation_amount)} max="100"></progress>
                                     </td>
+                                   
                                     <td className="text-center">
+                                    <Link to={`/dashboard/EditDonation/${donation._id}`}>
+                                        <button className="btn btn-ghost btn-lg">
+                                            <FaEdit className="text-red-600" />
+                                        </button>
+                                        </Link>
+                                    </td>
+                                    <td className="text-center">
+                                      
                                         <button onClick={() => handlePauseClick(donation)} className="btn border border-pink-500 text-pink-500 hover:text-white hover:bg-pink-500">
                                             {donation.status === 'paused' ? 'Unpaused' : 'Paused'}
                                         </button>
                                     </td>
                                     <td className="text-center">
-                                        <button className="btn btn-ghost btn-lg">
-                                            <FaEdit className="text-red-600" />
-                                        </button>
-                                        <button className="btn btn-ghost btn-lg">
-                                            <FaTrashAlt className="text-red-600" />
+                                        <button className="btn border border-pink-500 text-pink-500 hover:text-white hover:bg-pink-500">
+                                            View Donation
                                         </button>
                                     </td>
+                                   
                                 </tr>
                             ))}
                         </tbody>
