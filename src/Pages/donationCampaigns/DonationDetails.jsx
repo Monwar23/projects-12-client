@@ -71,7 +71,7 @@ const DonationDetails = () => {
                     <p className="mt-4 text-gray-700">{short_description}</p>
                     <h2>Maximum Donation Amount : <span className='font-bold text-pink-500'>${maximum_donation_amount}</span></h2>
                     <h2>Donated Amount : <span className='font-bold text-pink-500'>${donated_amount}</span></h2>
-                    <h2>Last Date of Donation : <span className='font-bold text-pink-500'>{last_date_of_donation}</span></h2>
+                    <h2>Last Date of Donation : <span className='font-bold text-pink-500'>{new Date(last_date_of_donation).toLocaleDateString()}</span></h2>
                     <hr className="my-6" />
                     <p className="mt-4 text-gray-700">{long_description}</p>
                     <div className="mt-5">

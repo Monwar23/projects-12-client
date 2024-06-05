@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import useAxiosSecures from "../../hooks/useAxiosSecures";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import { Helmet } from "react-helmet";
