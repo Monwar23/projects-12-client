@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { Helmet } from "react-helmet";
 import "react-datepicker/dist/react-datepicker.css";
 
-const EditDonation = () => {
+const EditDonationAdmin = () => {
     const donation = useLoaderData();
     const axiosSecure = useAxiosSecures();
     const navigate = useNavigate();
@@ -54,7 +54,7 @@ const EditDonation = () => {
 
             const petRes = await axiosSecure.put(`campaignsPet/${_id}`, petItem);
             if (petRes.data.modifiedCount > 0) {
-                navigate('/dashboard/myDonationCampaigns');
+                navigate('/dashboard/allDonation');
                 toast.success(`${data.pet_name} has been updated.`);
             }
         } catch (error) {
@@ -142,4 +142,4 @@ const EditDonation = () => {
     );
 };
 
-export default EditDonation;
+export default EditDonationAdmin;
