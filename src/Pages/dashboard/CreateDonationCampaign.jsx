@@ -32,7 +32,8 @@ const CreateDonationCampaign = () => {
                 long_description: petData.long_description,
                 donated_amount: 0,
                 email: petData.userEmail,
-                time: new Date()
+                time: new Date(),
+                status:'unpaused'
             }
     
             const petRes = await axiosSecure.post('campaignsPet', petItem)
