@@ -48,7 +48,7 @@ const DonationModal = ({isOpen,setIsEditModalOpen,pet,user}) => {
               <div className='mt-2 w-full'>
 
                   <Elements stripe={stripePromise}>
-                    <CheckOutForm pet={pet} user={user} setIsEditModalOpen={setIsEditModalOpen}></CheckOutForm>
+                    <CheckOutForm pet={pet} user={user} setIsEditModalOpen={setIsEditModalOpen} ></CheckOutForm>
                   </Elements>
 
               </div>

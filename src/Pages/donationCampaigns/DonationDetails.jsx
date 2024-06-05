@@ -3,6 +3,11 @@ import { useLoaderData, useNavigate } from 'react-router-dom';
 import UseAuth from '../../hooks/UseAuth';
 import DonationModal from './DonationModal';
 import { Helmet } from 'react-helmet';
+import useAxiosCommon from '../../hooks/useAxiosCommon';
+import { useQuery } from '@tanstack/react-query';
+import LoadingSpinner from '../../shared/LoadingSpinner';
+import CardDonation from './CardDonation';
+import SectionTitle from '../../components/SectionTitle';
 
 const DonationDetails = () => {
 
@@ -10,6 +15,18 @@ const DonationDetails = () => {
     const { user } = UseAuth()
     const navigate = useNavigate();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+    const axiosCommon = useAxiosCommon()
+
+    const {
+        data: campaignsPet = [],
+        isLoading,
+    } = useQuery({
+        queryKey: ['campaignsPet'],
+        queryFn: async () => {
+            const { data } = await axiosCommon(`/campaignsPet`)
+            return data
+        },
+    })
 
     const handleDonationButtonClick = () => {
         if (user) {
@@ -30,11 +47,14 @@ const DonationDetails = () => {
         
     } = pet;
 
+    if(isLoading) return <LoadingSpinner></LoadingSpinner>
+
     return (
-        <div className="min-h-screen mt-10 mb-5 flex items-center justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 py-8 px-4 sm:px-6 lg:px-8">
-        <Helmet>
+     <div>
+         <Helmet>
             <title>LovingPets | Donation Details</title>
         </Helmet>
+           <div className="min-h-screen mt-10 mb-5 flex items-center justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl w-full bg-white shadow-2xl rounded-lg overflow-hidden">
             <div className="md:flex">
                 <div className="md:flex-shrink-0">
@@ -70,6 +90,16 @@ const DonationDetails = () => {
             user={user}
         ></DonationModal>
     </div>
+    <SectionTitle
+                heading={"Extend Your Support: Discover Ongoing Causes"}
+                subHeading={"Join forces with our ongoing donation campaigns. These vital initiatives are actively addressing urgent needs and creating positive change. Explore the campaigns below and contribute to the cause that speaks to you most."}
+            ></SectionTitle>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
+    {campaignsPet.slice(0, 3).map(item => (
+      <CardDonation key={item._id} item={item} ></CardDonation>
+    ))}
+  </div>
+     </div>
     );
 };
 

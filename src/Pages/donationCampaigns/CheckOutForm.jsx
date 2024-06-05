@@ -8,7 +8,7 @@ const CheckOutForm = ({ pet, user, setIsEditModalOpen }) => {
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('');
     const [transactionId, setTransactionId] = useState('');
-    const [donatedAmount, setDonatedAmount] = useState(0); 
+    const [donatedAmount, setDonatedAmount] = useState(0);
     const stripe = useStripe();
     const elements = useElements();
     const axiosSecure = useAxiosSecures();
@@ -34,6 +34,13 @@ const CheckOutForm = ({ pet, user, setIsEditModalOpen }) => {
         const card = elements.getElement(CardElement);
 
         if (card === null) {
+            return;
+        }
+
+        const remainingAmount = pet.maximum_donation_amount - pet.donated_amount;
+
+        if (donatedAmount > remainingAmount) {
+            toast.error(`You can only donate up to $${remainingAmount}`);
             return;
         }
 
@@ -73,7 +80,7 @@ const CheckOutForm = ({ pet, user, setIsEditModalOpen }) => {
                 const payment = {
                     email: user.email,
                     transactionId: paymentIntent.id,
-                    date: new Date(), // utc date convert. use moment js to 
+                    date: new Date(),
                     cartIds: pet._id,
                     pet_name: pet.pet_name,
                     pet_Image_url: pet.pet_image_url,
@@ -84,8 +91,8 @@ const CheckOutForm = ({ pet, user, setIsEditModalOpen }) => {
                 console.log('payment saved', res.data);
                 if (res.data?.paymentResult?.insertedId) {
                     toast.success('Payment Successful');
-                    setIsEditModalOpen(false); 
-                    navigate('/donationCampaigns'); 
+                    setIsEditModalOpen(false);
+                    navigate('/donationCampaigns');
                     setDonatedAmount(0);
                     setError('');
                     setTransactionId('');

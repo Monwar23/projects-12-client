@@ -11,7 +11,6 @@ const DonationCampaigns = () => {
     const {
         data: campaignsPet = [],
         isLoading,
-        refetch,
     } = useQuery({
         queryKey: ['campaignsPet'],
         queryFn: async () => {
