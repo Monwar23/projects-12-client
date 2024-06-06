@@ -107,7 +107,7 @@ const MyDonationCampaign = () => {
                                 <tr key={donation.id}>
                                     <th className="text-center">{index + 1}</th>
                                     <td className="text-center">{donation.pet_name}</td>
-                                    <td className="text-center">{donation.maximum_donation_amount}</td>
+                                    <td className="text-center">${donation.maximum_donation_amount}</td>
                                     <td className="text-center">
                                         <progress className="progress progress-success w-56" value={calculateProgress(donation.donated_amount, donation.maximum_donation_amount)} max="100"></progress>
                                     </td>

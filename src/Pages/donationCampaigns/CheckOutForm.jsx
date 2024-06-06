@@ -143,7 +143,10 @@ const CheckOutForm = ({ pet, user, setIsEditModalOpen }) => {
                 </button>
             </div>
             {error && <p className="text-red-600">{error}</p>}
-            {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>}
+            {transactionId && <div>
+                <p className="text-pink-500 text-lg">Donated Successful</p>
+                <p className="text-green-600"> Your transaction id: {transactionId}</p>
+                </div>}
         </form>
     );
 };

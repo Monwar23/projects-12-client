@@ -26,7 +26,7 @@ const CreateDonationCampaign = () => {
             const petItem = {
                 pet_image_url: petData.pet_image_url,
                 pet_name: petData.pet_name,
-                maximum_donation_amount: petData.maximum_donation_amount,
+                maximum_donation_amount: parseInt(petData.maximum_donation_amount,10),
                 last_date_of_donation: lastDateOfDonation,
                 short_description: petData.short_description,
                 long_description: petData.long_description,
@@ -77,7 +77,7 @@ const CreateDonationCampaign = () => {
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Maximum Donation Amount</label>
                     <input
-                        type="text"
+                        type="number"
                         {...register('maximum_donation_amount', { required: true })}
                         className="mt-1 block w-full border border-pink-500 rounded-md shadow-sm p-2 focus:border-pink-500 focus:outline-none focus:ring-1 focus:ring-pink-500"
                     />

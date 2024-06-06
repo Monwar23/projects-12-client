@@ -47,6 +47,10 @@ const DonationDetails = () => {
         
     } = pet;
 
+    const currentDate = new Date();
+    const lastDateOfDonation = new Date(last_date_of_donation);
+    const isDonationClosed = currentDate > lastDateOfDonation;
+
     if(isLoading) return <LoadingSpinner></LoadingSpinner>
 
     return (
@@ -71,13 +75,16 @@ const DonationDetails = () => {
                     <p className="mt-4 text-gray-700">{short_description}</p>
                     <h2>Maximum Donation Amount : <span className='font-bold text-pink-500'>${maximum_donation_amount}</span></h2>
                     <h2>Donated Amount : <span className='font-bold text-pink-500'>${donated_amount}</span></h2>
-                    <h2>Last Date of Donation : <span className='font-bold text-pink-500'>{new Date(last_date_of_donation).toLocaleDateString()}</span></h2>
+                    <h2>Last Date of Donation : <span className='font-bold text-pink-500'>{lastDateOfDonation.toLocaleDateString()}</span></h2>
                     <hr className="my-6" />
                     <p className="mt-4 text-gray-700">{long_description}</p>
                     <div className="mt-5">
-                        <button onClick={handleDonationButtonClick}
-                            className="btn btn-outline rounded-full border-b-4 text-pink-500 hover:bg-pink-500 hover:text-white hover:border-none">
-                            Donation {pet_name}
+                        <button 
+                            onClick={handleDonationButtonClick}
+                            className={`btn btn-outline rounded-full border-b-4 text-pink-500 ${isDonationClosed ? 'cursor-not-allowed opacity-50' : 'hover:bg-pink-500 hover:text-white hover:border-none'}`}
+                            disabled={isDonationClosed}
+                        >
+                            {isDonationClosed ? 'Donation Closed' : `Donate ${pet_name}`}
                         </button>
                     </div>
                 </div>
