@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
+import {  useInfiniteQuery } from "@tanstack/react-query";
 import useAxiosCommon from "../../hooks/useAxiosCommon";
 import { Helmet } from "react-helmet";
 import CardDonation from "./CardDonation";
@@ -60,7 +60,7 @@ const DonationCampaigns = () => {
           hasMore={hasMore && hasNextPage}
           loader={<LoadingSpinner />}
           endMessage={<p>No more campaigns to load</p>}
-          scrollThreshold={0.9} // Trigger the next fetch when the user scrolls to 90% of the page
+          scrollThreshold={0.9}
         >
          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 p-5">
          {campaigns.map((item) => (
