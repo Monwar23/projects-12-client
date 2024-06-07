@@ -37,7 +37,7 @@ const Login = () => {
           navigate(location?.state ? location.state : '/')
           toast.success('SignIn Successful')
         } catch (err) {
-          console.log(err)
+          // console.log(err)
           toast.error(err.message)
           setLoading(false)
         }
@@ -51,7 +51,7 @@ const Login = () => {
           navigate(location?.state ? location.state : '/')
           toast.success('SignIn Successful')
         } catch (err) {
-          console.log(err)
+          // console.log(err)
           toast.error(err.message)
         }
       }
@@ -64,7 +64,7 @@ const Login = () => {
           navigate(location?.state ? location.state : '/')
           toast.success('SignIn Successful')
         } catch (err) {
-          console.log(err)
+          // console.log(err)
           toast.error(err.message)
         }
       }

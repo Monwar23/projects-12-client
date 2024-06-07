@@ -18,7 +18,7 @@ const CheckOutForm = ({ pet, user, setIsEditModalOpen }) => {
         if (donatedAmount > 0) {
             axiosSecure.post('/create-payment-intent', { price: donatedAmount })
                 .then(res => {
-                    console.log(res.data.clientSecret);
+                    // console.log(res.data.clientSecret);
                     setClientSecret(res.data.clientSecret);
                 });
         }
@@ -50,10 +50,10 @@ const CheckOutForm = ({ pet, user, setIsEditModalOpen }) => {
         });
 
         if (error) {
-            console.log('payment error', error);
+            // console.log('payment error', error);
             setError(error.message);
         } else {
-            console.log('payment method', paymentMethod)
+            // console.log('payment method', paymentMethod)
             setError('');
         }
 
@@ -69,11 +69,11 @@ const CheckOutForm = ({ pet, user, setIsEditModalOpen }) => {
         });
 
         if (confirmError) {
-            console.log('confirm error');
+            // console.log('confirm error');
         } else {
-            console.log('payment intent', paymentIntent);
+            // console.log('payment intent', paymentIntent);
             if (paymentIntent.status === 'succeeded') {
-                console.log('transaction id', paymentIntent.id);
+                // console.log('transaction id', paymentIntent.id);
                 setTransactionId(paymentIntent.id);
 
                 // Save the payment in the database
@@ -88,7 +88,7 @@ const CheckOutForm = ({ pet, user, setIsEditModalOpen }) => {
                 };
 
                 const res = await axiosSecure.post('/payments', payment);
-                console.log('payment saved', res.data);
+                // console.log('payment saved', res.data);
                 if (res.data?.paymentResult?.insertedId) {
                     toast.success('Payment Successful');
                     setIsEditModalOpen(false);

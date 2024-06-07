@@ -9,6 +9,7 @@ import UseAuth from '../../hooks/UseAuth';
 import useAxiosSecures from '../../hooks/useAxiosSecures';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const AddAPets = () => {
     const axiosCommon = useAxiosCommon()
@@ -72,7 +73,11 @@ const AddAPets = () => {
     }));
 
     return (
-        <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg">
+       <div>
+        <Helmet>
+            <title>LovingPets | Add A Pet</title>
+        </Helmet>
+         <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg">
             <h2 className="text-2xl font-semibold mb-6 text-center">Add a Pet</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div>
@@ -167,6 +172,7 @@ const AddAPets = () => {
                 </div>
             </form>
         </div>
+       </div>
     );
 };
 

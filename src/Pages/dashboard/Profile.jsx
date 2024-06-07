@@ -5,7 +5,7 @@ import LoadingSpinner from "../../shared/LoadingSpinner";
 const Profile = () => {
     const { user, loading } = UseAuth() || {}
 
-  console.log(user)
+  // console.log(user)
   if ( loading) return <LoadingSpinner />
   return (
     <div className='flex justify-center items-center h-screen'>

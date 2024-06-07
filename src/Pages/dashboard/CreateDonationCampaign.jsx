@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 
 const CreateDonationCampaign = () => {
@@ -50,7 +51,11 @@ const CreateDonationCampaign = () => {
 
 
     return (
-        <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg">
+        <div>
+            <Helmet>
+                <title>LovingPets | Create Donation Campaigns</title>
+            </Helmet>
+            <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg">
             <h2 className="text-2xl font-semibold mb-6 text-center">Add A Donation Campaigns</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div>
@@ -123,6 +128,7 @@ const CreateDonationCampaign = () => {
                     <button type="submit" className="w-full btn btn-outline rounded-full border-b-4 text-pink-500 hover:bg-pink-500 hover:text-white hover:border-none">Submit</button>
                 </div>
             </form>
+        </div>
         </div>
     );
 };

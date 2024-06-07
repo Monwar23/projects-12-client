@@ -5,6 +5,7 @@ import useAxiosCommon from '../../hooks/useAxiosCommon';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { imageUpload } from '../../utilies';
+import { Helmet } from 'react-helmet';
 
 const UpdatePetsAdmin = () => {
     const axiosCommon = useAxiosCommon();
@@ -73,6 +74,13 @@ const UpdatePetsAdmin = () => {
     };
 
     return (
+
+       <div>
+         <Helmet>
+            <title>
+                LovingPets | Update Pets Admin
+            </title>
+        </Helmet>
         <div className="max-w-2xl mx-auto bg-white p-8 shadow-md rounded-lg">
             <h2 className="text-2xl font-bold text-center text-pink-500 mb-6">Update {pet_name}</h2>
             <form onSubmit={handleUpdate} className="space-y-6">
@@ -171,6 +179,7 @@ const UpdatePetsAdmin = () => {
                 </button>
             </form>
         </div>
+       </div>
     );
 };
 

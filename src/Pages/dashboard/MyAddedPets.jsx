@@ -46,7 +46,7 @@ const MyAddedPets = () => {
             return data;
         },
         onSuccess: data => {
-            console.log(data);
+            // console.log(data);
             refetch();
             toast.success('Successfully deleted.');
         },
@@ -56,7 +56,7 @@ const MyAddedPets = () => {
         try {
             await mutateDelete(id);
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     };
 
@@ -66,7 +66,7 @@ const MyAddedPets = () => {
             return data;
         },
         onSuccess: data => {
-            console.log(data);
+            // console.log(data);
             refetch();
             toast.success('Successfully Updated.');
         },
@@ -76,7 +76,7 @@ const MyAddedPets = () => {
         try {
             await mutateStatus(id);
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     };
 

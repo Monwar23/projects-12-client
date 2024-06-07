@@ -50,9 +50,9 @@ const Register = () => {
         try {
           setLoading(true)
           const image_url = await imageUpload(image)
-          console.log(image_url)
+          // console.log(image_url)
           const result = await createUser(email, password)
-          console.log(result)
+          // console.log(result)
     
           await updateUserProfile(name, image_url)
           navigate(location?.state ? location.state : '/')
@@ -71,7 +71,7 @@ const Register = () => {
           navigate(location?.state ? location.state : '/')
           toast.success('SignUp Successful')
         } catch (err) {
-          console.log(err)
+          // console.log(err)
           toast.error(err.message)
         }
       }
@@ -84,7 +84,7 @@ const Register = () => {
           navigate(location?.state ? location.state : '/')
           toast.success('SignUp Successful')
         } catch (err) {
-          console.log(err)
+          // console.log(err)
           toast.error(err.message)
         }
       }
