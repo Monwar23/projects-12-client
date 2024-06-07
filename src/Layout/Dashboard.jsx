@@ -118,7 +118,7 @@ const Dashboard = () => {
                         )}
                         <div className="divider"></div>
                         <li>
-                            <NavLink to="/order/contact" className={navLinkStyles}>
+                            <NavLink to="/dashboard/profile" className={navLinkStyles}>
                                 Profile
                             </NavLink>
                         </li>

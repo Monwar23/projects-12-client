@@ -27,6 +27,7 @@ import UpdatePetsAdmin from "../Pages/dashboard/UpdatePetsAdmin";
 import DonationDetails from "../Pages/donationCampaigns/DonationDetails";
 import EditDonation from "../Pages/dashboard/EditDonation";
 import EditDonationAdmin from "../Pages/dashboard/EditDonationAdmin";
+import Profile from "../Pages/dashboard/Profile";
 
  export const router = createBrowserRouter([
     {
@@ -132,6 +133,10 @@ import EditDonationAdmin from "../Pages/dashboard/EditDonationAdmin";
           path:'EditDonationAdmin/:id',
           element:<PrivateRoutes><AdminRoutes><EditDonationAdmin></EditDonationAdmin></AdminRoutes></PrivateRoutes>,
           loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/campaignsPet/${params.id}`)
+        },
+        {
+          path:'profile',
+          element:<PrivateRoutes><Profile></Profile></PrivateRoutes>
         },
         
       ]
